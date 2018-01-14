@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-bundle.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-base.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-exports.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-ui.min.js"></script>
+
+<script src="https://cdn.anychart.com/releases/8.1.0/js/anychart-data-adapter.min.js"></script>
+<link rel="stylesheet" href="https://cdn.anychart.com/releases/8.1.0/css/anychart-ui.min.css" />
+<style>
+ #container {
+    width: 40%;
+    height: 70%;
+    margin: 0;
+    padding: 0;
+}
+</style>
+<body>
+
+	<div th:if="${message}">
+		<h2 th:text="${message}"/>
+	</div>
+
+	<div>
+		<form method="POST" enctype="multipart/form-data" action="/">
+			<table>
+				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+			</table>
+		</form>
+	</div>
+
+	<div>
+		<table>
+			<tr th:each="file : ${files}">
+				<td><text th:text="${file}" /></td>
+			</tr>
+		</table>
+	</div>
+	<div id="container">
+<script type="text/javascript">
+anychart.data.loadJsonFile("http://localhost:8080/files/test.json", function (data) {
+	// create a chart and set loaded data
+    chart = anychart.tagCloud(data);
+
+    chart.title("Load JSON data and create a chart");
+    chart.container("container");
+    chart.draw();
+});
+</script>
+</div>
+</body>
+</html>
